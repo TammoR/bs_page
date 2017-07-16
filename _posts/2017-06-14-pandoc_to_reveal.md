@@ -66,5 +66,5 @@ Another reason math rendering might fail is that your browser blocks the executi
 In Chrome and Firefox unsafe scripts can be allowed in the address line.
 
 <p align="center"> 
-<img src="/img/load_scripts.png">
+<img src="./../img/load_scripts.png">
 </p>
