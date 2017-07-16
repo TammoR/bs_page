@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-16T17:31:20+01:00</updated><id>http://localhost:4000/</id><title type="html">Tammo Rukat</title><subtitle>Web Developer from Somewhere</subtitle><entry><title type="html">Pretty html slides made simple with reveal.js and pandoc</title><link href="http://localhost:4000/pandoc_to_reveal/" rel="alternate" type="text/html" title="Pretty html slides made simple with reveal.js and pandoc" /><published>2017-06-14T00:00:00+01:00</published><updated>2017-06-14T00:00:00+01:00</updated><id>http://localhost:4000/pandoc_to_reveal</id><content type="html" xml:base="http://localhost:4000/pandoc_to_reveal/">&lt;p&gt;While there are plenty of good ressources available on how to use reveal.js, this tutorial will set you up with all neccessities for a scientific presentation in only a few minutes. No prior knowledege on JavaScript or html needed.&lt;/p&gt;
+
+&lt;p&gt;For a taste of what the result will look like check out&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lab.hakim.se/reveal-js/#/&quot;&gt;The official reveal.js demo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tammor.github.io/orm_presentation/&quot;&gt;One of my presentations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting started&lt;/h2&gt;
+
+&lt;p&gt;The most important features are demonstrated by example and are meant as a starting point to explore and build your own presentation.&lt;/p&gt;
+
+&lt;p&gt;To get the example running, install pandoc and execute the following commands to clone the git repository and convert the markdown file to a beautiful html presentation.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; git clone https://github.com/TammoR/pandoc_to_reveal
+&amp;gt;&amp;gt;&amp;gt; cd pandoc_to_reveal
+&amp;gt;&amp;gt;&amp;gt; pandoc -t revealjs -s -o myslides.html pandoc_test.md -V revealjs-url=http://lab.hakim.se/reveal-js -V theme=sky --mathjax --slide-level=2 --css pandoc_test.css -V transition=cube
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This should create myslide.html. To view thre presentation open the .html output file in any browser.
+Togehter with the raw markdown file &lt;code class=&quot;highlighter-rouge&quot;&gt;pandoc_test.md&lt;/code&gt; this demonstrates the following features:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;including verbatim code&lt;/li&gt;
+  &lt;li&gt;including images&lt;/li&gt;
+  &lt;li&gt;formatting multiple columns&lt;/li&gt;
+  &lt;li&gt;rendering maths using LaTeX&lt;/li&gt;
+  &lt;li&gt;fragmented appearance of slide elements&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To modify the presentation edit the corresponding &lt;code class=&quot;highlighter-rouge&quot;&gt;.md&lt;/code&gt; file. A good markdown cheat-sheet is available &lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can render a html file that is on github using github’s rendering tool and appending the URL.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://htmlpreview.github.io/?https://github.com/TammoR/pandoc_to_reveal/blob/master/pandoc_test.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;get-a-pdf-version-of-your-slides&quot;&gt;Get a pdf version of your slides&lt;/h2&gt;
+&lt;p&gt;Open your slides in the browser and add &lt;code class=&quot;highlighter-rouge&quot;&gt;?print-pdf&lt;/code&gt; to the URL. E.g. using the htmlpreview tool:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://htmlpreview.github.io/?https://github.com/TammoR/pandoc_to_reveal/blob/master/pandoc_test.html?print-pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Then you can use your browsers print function (might need some adjustment of margins) to print to PDF.&lt;/p&gt;
+
+&lt;h2 id=&quot;change-appearance&quot;&gt;Change appearance&lt;/h2&gt;
+&lt;p&gt;You can change the theme and the slide transitions by adjusting the corresponding options in the pandoc command. All options are documented in the &lt;a href=&quot;https://github.com/hakimel/reveal.js/&quot;&gt;reveal.js project page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Further modifications can be made by editing the local css file (pandoc_test.css).&lt;/p&gt;
+
+&lt;h2 id=&quot;section-structure&quot;&gt;Section structure&lt;/h2&gt;
+&lt;p&gt;The intended section depths is defined by the &lt;code class=&quot;highlighter-rouge&quot;&gt;--slide-level=2&lt;/code&gt; option.
+Content should only be put under the lowest level slides (this limitation is discussed &lt;a href=&quot;https://github.com/jgm/pandoc/issues/816&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;latex-rendering-issues&quot;&gt;Latex rendering issues&lt;/h2&gt;
+&lt;p&gt;If you experience trouble with LaTeX rendering check whether the matjax URL In your html file is the same as below. Otherwise you can the correct mathjax link manually:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--mathjax=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The full compilation command then reads:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pandoc -t revealjs -s -o myslides.html pandoc_test.md -V revealjs-url=http://lab.hakim.se/reveal-js -V theme=sky --mathjax=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; --slide-level=2 --css pandoc_test.css -V transition=cube
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another reason math rendering might fail is that your browser blocks the execution of the necessary scripts. 
+In Chrome and Firefox unsafe scripts can be allowed in the address line.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt; 
+&lt;img src=&quot;/img/load_scripts.png&quot; /&gt;
+&lt;/p&gt;</content><author><name></name></author><summary type="html">While there are plenty of good ressources available on how to use reveal.js, this tutorial will set you up with all neccessities for a scientific presentation in only a few minutes. No prior knowledege on JavaScript or html needed.</summary></entry><entry><title type="html">Bayesian Boolean Matrix Factorisation - Accepted for ICML 2017</title><link href="http://localhost:4000/icml_accepted/" rel="alternate" type="text/html" title="Bayesian Boolean Matrix Factorisation - Accepted for ICML 2017" /><published>2017-05-15T00:00:00+01:00</published><updated>2017-05-15T00:00:00+01:00</updated><id>http://localhost:4000/icml_accepted</id><content type="html" xml:base="http://localhost:4000/icml_accepted/">&lt;p&gt;Our paper paper on Bayesian Boolean Matrix Factorisation has been accepted for publication at
+this years’ International Conference on Machine Learning (&lt;a href=&quot;https://2017.icml.cc/&quot;&gt;ICML&lt;/a&gt;) conference in Sydney. Find the &lt;a href=&quot;https://arxiv.org/abs/1702.06166&quot;&gt;preprint on ArXiv&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Our paper paper on Bayesian Boolean Matrix Factorisation has been accepted for publication at this years’ International Conference on Machine Learning (ICML) conference in Sydney. Find the preprint on ArXiv.</summary></entry></feed>

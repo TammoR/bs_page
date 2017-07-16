@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tammo Rukat</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="brand">Tammo Rukat</div>
+    <div class="address-bar"> Statistics - Machine Learning - Genomics | DPhil Student @ University of Oxford </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="index.html">Business Casual</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">Blog</a>
+                    </li>
+		    <li>
+                        <a href="research.html">Research</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <div id="carousel-example-generic" class="carousel slide">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators hidden-xs">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                              <img class="img-responsive img-full" src="img/calc_digits.png" alt="">                          
+			      <div class="caption text-center">
+				Toy data factorised by OrMachine and corresponding feature hierarchy
+			      </div>
+			    </div>
+			    
+			    <div class="item">
+                              <img class="img-responsive img-full" src="img/mnist.png" alt="">
+			    <div class="caption">
+				Feature hierarchy for MNIST data
+			    </div>
+			    </div>
+
+			    <div class="item">
+                              <img class="img-responsive img-full" src="img/pollen.png" alt="">
+			      <div class="caption">
+				Representational hierarchy of Boolean factorisations of Pollen single cell RNAseq data, ordered by cell type.
+			    </div>
+                            </div>
+
+			    <div class="item">
+                              <img class="img-responsive img-full" src="img/hmms.png" alt="">
+			      <div class="caption">
+				Comparison of classical EEG microstates to Hidden Markov states inferred with a Gaussian observation model.
+			    </div>
+                            </div>
+
+                            <!-- <div class="item"> -->
+                            <!--     <img class="img-responsive img-full" src="img/slide-3.jpg" alt=""> -->
+                            <!-- </div> -->
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="icon-prev"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="icon-next"></span>
+                        </a>
+                    </div>
+		    <br><br>
+		    <hr>
+                    <h2 class="intro-text text-center">News
+                    </h2>
+                    <hr>
+		    <hr class="visible-xs">
+		    <p>May 13: Our paper on <a href="https://arxiv.org/abs/1702.06166" target="_blank">Bayesian Boolean Matrix Factorisation</a> has been accepted for <a href="http://www.icml.cc" target="_blank">ICML 2017 </a> </hr>
+		    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">Short Bio
+                    </h2>
+                    <hr>
+                    <img class="img-responsive img-border img-left" src="img/portrait.jpg" alt="" width="25%">
+                    <hr class="visible-xs">
+                    <p>I am a DPhil student in the Department of Statistics at the University of Oxford, working with Chris Yau and Chris Holmes. I am developing probabilistic models and scalable algorithms for the analysis of large-scale datasets with a particular focus on genomics.</p>
+		    <p>A few other areas of interest are deep generative models, machine learning applications in healthcare, distributed computing and community detection in networks. </p>
+		    <p>I received a Bachelos and Masters degree in Physics from Humboldt University Berlin. I undertook research and most coursework for my masters at the University of British Columbia where I worked on tracer kinetic models for the analysis of time-resolved magentic resonance images.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.container -->
+
+    <!-- <footer> -->
+    <!--     <div class="container"> -->
+    <!--         <div class="row"> -->
+    <!--             <div class="col-lg-12 text-center"> -->
+    <!--                 <p>Copyright &copy; Your Website 2014</p> -->
+    <!--             </div> -->
+    <!--         </div> -->
+    <!--     </div> -->
+    <!-- </footer> -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>
