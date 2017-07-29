@@ -5,7 +5,7 @@ title: Publications
 
 
 # <small>journal papers</small>
-+ [**Bayesian Boolean Matrix Factorisation**](https://arxiv.org/abs/1702.06166)<br> T. Rukat, C.C. Holmes, M. Titsias, C. Yau. Proceedings of the 34th International Conference on Machine Learning. 2017.
++ [**Bayesian Boolean Matrix Factorisation**](http://proceedings.mlr.press/v70/rukat17a.html)<br> T. Rukat, C.C. Holmes, M. Titsias, C. Yau. Proceedings of the 34th International Conference on Machine Learning. 2017.
   
     <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#boomf-abstract">abstract</button>
 	<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#boomf-bibtex">bibtex</button>
