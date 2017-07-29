@@ -5,7 +5,7 @@ title: Publications
 
 
 # <small>journal papers</small>
-+ [**Bayesian Boolean Matrix Factorisation**](https://arxiv.org/abs/1702.06166)<br> T. Rukat, C.C. Holmes, M. Titsias, C. Yau. ICML, 2017. preprint arXiv:1702.06166
++ [**Bayesian Boolean Matrix Factorisation**](https://arxiv.org/abs/1702.06166)<br> T. Rukat, C.C. Holmes, M. Titsias, C. Yau. Proceedings of the 34th International Conference on Machine Learning. 2017.
   
     <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#boomf-abstract">abstract</button>
 	<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#boomf-bibtex">bibtex</button>
@@ -15,11 +15,22 @@ title: Publications
 	</div>
 	<div id="boomf-bibtex" class="collapse">
 	<pre>
-	@article{rukat2017_bayes-boolean_icml_pre,
-	title = {Bayesian Boolean Matrix Factorisation},
-	author = {Rukat, Tammo and Holmes, Chris C. and Titsias, Michalis K. and Yau, Christopher},
-	journal = {Proceedings of the 34th Annual International Conference on Machine Learning; preprint arXiv:1702.06166},
-	year = 2017}</pre>
+	@InProceedings{rukat2017_bayes-boolean,
+  title = 	 {Bayesian Boolean Matrix Factorisation},
+  author = 	 {Tammo Rukat and Chris C. Holmes and Michalis K. Titsias and Christopher Yau},
+  booktitle = 	 {Proceedings of the 34th International Conference on Machine Learning},
+  pages = 	 {2969--2978},
+  year = 	 {2017},
+  editor = 	 {Doina Precup and Yee Whye Teh},
+  volume = 	 {70},
+  series = 	 {Proceedings of Machine Learning Research},
+  address = 	 {International Convention Centre, Sydney, Australia},
+  month = 	 {06--11 Aug},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v70/rukat17a/rukat17a.pdf},
+  url = 	 {http://proceedings.mlr.press/v70/rukat17a.html},
+  abstract = 	 {Boolean matrix factorisation aims to decompose a binary data matrix into an approximate Boolean product of two low rank, binary matrices: one containing meaningful patterns, the other quantifying how the observations can be expressed as a combination of these patterns. We introduce the OrMachine, a probabilistic generative model for Boolean matrix factorisation and derive a Metropolised Gibbs sampler that facilitates efficient parallel posterior inference. On real world and simulated data, our method outperforms all currently existing approaches for Boolean matrix factorisation and completion. This is the first method to provide full posterior inference for Boolean Matrix factorisation which is relevant in applications, e.g. for controlling false positive rates in collaborative filtering and, crucially, improves the interpretability of the inferred patterns. The proposed algorithm scales to large datasets as we demonstrate by analysing single cell gene expression data in 1.3 million mouse brain cells across 11 thousand genes on commodity hardware.}
+  }</pre>
 	</div>
 
 + [**Dynamic contrast-enhanced MRI in mice: an investigation of model parameter uncertainties.**](http://onlinelibrary.wiley.com/doi/10.1002/mrm.25319/abstract)  
