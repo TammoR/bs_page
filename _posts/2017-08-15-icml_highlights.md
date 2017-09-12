@@ -5,10 +5,10 @@ title: ICML Highlights
 
 A brief summary of some of my favourite ICML papers. Highly biased selection. More to follow.
 
-## [On Calibration of Modern Neural Networks](http://proceedings.mlr.press/v70/guo17a.html)
+### [On Calibration of Modern Neural Networks](http://proceedings.mlr.press/v70/guo17a.html)
 The authors make the simple yet striking observation that deep
    neural network classifiers do not output well calibrated
-   probabilities by demonstrating that the softmax output lacks 
+   probabilities. They demonstrate that the softmax output lacks 
    correspondence to the empirical
    classification probability. This does not apply to the previous
    generation of neural networks from the 90s which seem to be
@@ -18,12 +18,12 @@ The authors make the simple yet striking observation that deep
    The authors speculate that this effect can be attributed to
    overfitting the likelihood but not the classification error.
    Several methods for retrospective calibration are investiaged, of
-   which /Platt scaling/ shows the most promise despite its
+   which *Platt scaling* shows the most promise despite its
    simplicity. This techniques amounts
    to a simple rescaling of the network output that optimises the
    likelihood of a validation set.
 
-## [Scalable Generative Models for Multi-Label Learning with Missing Labels](http://proceedings.mlr.press/v70/jain17a)
+### [Scalable Generative Models for Multi-Label Learning with Missing Labels](http://proceedings.mlr.press/v70/jain17a)
    Jain et al. introduce a probabilistic generative model
    for multi-label learning with a potentially large number of
    labels. Label applicability can be represented as a binary
@@ -42,7 +42,7 @@ The authors make the simple yet striking observation that deep
    variety (but not all) benchmark datasets.
    
 
-## [Discovering Discrete Latent Topics with Neural Variational Inference](http://proceedings.mlr.press/v70/miao17a.html)
+### [Discovering Discrete Latent Topics with Neural Variational Inference](http://proceedings.mlr.press/v70/miao17a.html)
    The authors start from latent Dirichlet allocation (LDA) [[Blei et al., 2003](http://jmlr.csail.mit.edu/papers/v3/blei03a.html)]
    where document-wise topic proportions are drawn from a Dirichlet (process) prior
    \begin{align} \theta_d \sim \text{Dir}(\alpha_0)\;. \end{align}
