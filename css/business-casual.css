@@ -85,7 +85,9 @@ hr {
 
 .box {
     margin-bottom: 20px;
-    padding: 30px 150px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 30px 100px;
     background: #fff;
     background: rgba(255,255,255,0.9);
 }
