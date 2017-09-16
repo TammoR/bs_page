@@ -3,7 +3,7 @@ layout: post
 title: ICML Highlights
 ---
 
-A brief summary of some of my favourite ICML papers. Highly biased selection. More to follow.
+A brief teaser of some of my favourite ICML papers. Highly biased selection. More to follow.
 
 ### [On Calibration of Modern Neural Networks](http://proceedings.mlr.press/v70/guo17a.html)
 The authors make the simple yet striking observation that deep
