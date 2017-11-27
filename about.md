@@ -6,7 +6,7 @@ permalink: /about/
 
 # <small> Short Academic Bio </small>
 <img style="float: right; width:200px" src="./../img/portrait.jpg" hspace="15" vspace="20">
-I am a DPhil student in the Department of Statistics at the University of Oxford, working with Chris Yau and Chris Holmes. I am developing probabilistic models and scalable algorithms for the analysis of large-scale datasets with a particular focus on genomics data.
+I am a DPhil student in the Department of Statistics at the University of Oxford. I am currently based at the [Alan Turing Institute](https://www.turing.ac.uk/) in London where I am a PhD enrichment fellow. I am developing probabilistic models and scalable algorithms for the analysis of large-scale datasets with a particular focus on genomics data.
 
 A few other areas of interest are deep generative models, machine learning applications in healthcare, distributed computing and community detection in networks.
 
