@@ -21,25 +21,33 @@
 <header>
 <h1 class="title">SuperOrM</h1>
 </header>
-<p>We find the OrMachine posterior based on the Hamming Distance between the data <span class="math inline">\(X\)</span> and the prediction <span class="math inline">\(\max(Z \cdot U, 1)\)</span>. For an observed object <span class="math inline">\(x_n\)</span>, we have <span class="math display">\[\begin{align}
-    d_{\text{OrM}} = \sum\limits_d (1-\tilde{x}_{nd}\tilde{g}_{nd})
+<p>We find the OrMachine posterior based on the Hamming Distance between the data <span class="math inline">\(X\)</span> and the prediction <span class="math inline">\(\max(Z \cdot U, 1)\)</span>. For an observation <span class="math inline">\(x_{nd}\)</span>, we have <span class="math display">\[\begin{align}
+    d_{\text{OrM}} = 1-\tilde{x}_{nd}\tilde{g}_{nd}
 \end{align}\]</span> where <span class="math inline">\(g_{nd} = 1 - \prod\limits_l (1-z_{nl}u_{ld})\)</span>. Then we can define a distribution over the latent factors. <span class="math display">\[\begin{align}
-    p(z_{nl}|.) \propto \exp\left[-\frac{1}{2} \lambda \; d_{\text{OrM}} \right]
+    p(z_{nl}|.) \propto \exp\left[-\frac{1}{2} \lambda \; 
+        \sum\limits_d d_{\text{OrM}}^{(nd)} \right]
 \end{align}\]</span> Normalising recovers the good old OrMachine posterior <span class="math display">\[\begin{align}
-    p(z_{nl}|.) = \sigma\left[\frac{1}{2}\lambda 
+    p(z_{nl}|.) = \sigma\left[\frac{1}{2}\lambda \sum\limits_d
         (d_{\text{OrM}}^{z_{nl}=1} - d_{\text{OrM}}^{z_{nl}=0}) \right]
     = \sigma\left[\lambda \sum\limits_d \tilde{x}_{nd} u_{ld}
         \prod\limits_{l&#39;\neq l} (1-z_{nl}u_{ld}) \right]
 \end{align}\]</span></p>
 <p>Now let’s assume we have many type II errors in the data, but only few type I errors. In that case we believe positive observations more then negative observations and thus want to control the associated noise separately. We can define the distance <span class="math display">\[\begin{align}
-    d_{\text{SuperOrM}} = \sum\limits_d \left[
-        \lambda_1 x_{nd} (1-\tilde{x}_{nd}\tilde{g}_{nd})
-        + \lambda_2 (x_{nd}-1) (1-\tilde{x}_{nd}\tilde{g}_{nd})
-        \right]
+    d_{\text{SuperOrM}} = \sum\limits_d
+     (1-\tilde{x}_{nd}\tilde{g}_{nd}) 
+     \left[
+        \lambda_1 x_{nd} 
+        + \lambda_2 (x_{nd}-1)
+     \right]
 \end{align}\]</span> This leads to the conditionals <span class="math display">\[\begin{equation}
-    p(z_{nl}|.) = \sigma\left[\lambda \sum\limits_d \tilde{x}_{nd} u_{ld}
+    p(z_{nl}=1|.) = \sigma\left[ \sum\limits_d \tilde{x}_{nd} u_{ld}
         \prod\limits_{l&#39;\neq l} (1-z_{nl}u_{ld}) 
         \left[\lambda_1 x_{nd} + \lambda_2 (x_{nd}-1) \right] \right]
 \end{equation}\]</span></p>
+<p>The corresponding likelihood is now a strange animal, conditioned on the true value of the data <span class="math inline">\(\bar{x}\)</span>.</p>
+<span class="math display">\[\begin{align}
+p(x_{nd}|.) = \sigma\left[\tilde{x}_{nd} \tilde{g}_{nd}
+    \left(\lambda_1 \bar{x}_{nd} + [\bar{x}_{nd}-1) \lambda_2 ] \right) \right]
+\end{align}\]</span>
 </body>
 </html>
