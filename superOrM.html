@@ -54,20 +54,5 @@ p(x_{nd}|.) = \sigma\left[\tilde{x}_{nd} \tilde{g}_{nd} \lambda
     \sigma(\lambda) = \frac{TP + \frac{TN}{s}}{TP + FN + \frac{TN + FP}{s}}
 \end{align}\]</span></p>
 <p>For now we consider s a fixed hyperparameter. (TODO)</p>
-<h2 id="simulation-catalogue-like-data">Simulation catalogue-like data</h2>
-<p>N: number of objects D: number of attributes</p>
-<ol type="1">
-<li>Draw the number of latent attribute sets, <span class="math inline">\(L\)</span>.</li>
-<li>For each attribute set draw the number of elements uniformly in the interval <span class="math inline">\(D\cdot\)</span>[0.05-0.15]. (could do something heavy-tailed here.s)</li>
-<li>Draw the elements for each attribute set uniformly random from all available elements (could introduce some correlation here.)</li>
-<li>Draw the number of attribute sets for each object from a Poissons(alpha).</li>
-<li>Choose the attribute sets for each observation uniformly random. (In fact, we would assume correlation in the choice of attribute sets.)</li>
-<li>Introduce noise, mimiking human error, and flip all ones with a high probability p_plus and flip all zeros with a lower probability p_minus.</li>
-</ol>
-<p>See below some results of this procedure compared to actual catalogue data</p>
-<p><img src="/Users/trukat/Dropbox/Screenshots/Screenshot 2018-02-13 14.43.44.png " alt="Drawing" style="width: 500px;"/></p>
-<p>Obviously, this (or a more elaborated) generative process could be subject to posterior inference.</p>
-<h2 id="experiments">Experiments</h2>
-<p><img src="/Users/trukat/Dropbox/Screenshots/Screenshot 2018-02-13 16.34.10.png " alt="Drawing" style="width: 500px;"/></p>
 </body>
 </html>
