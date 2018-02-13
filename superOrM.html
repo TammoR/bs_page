@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>SuperOrM</title>
+  <title>Balanced OrM</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -19,8 +19,9 @@
 </head>
 <body>
 <header>
-<h1 class="title">SuperOrM</h1>
+<h1 class="title">Balanced OrM</h1>
 </header>
+<h2 id="model-modifications">Model modifications</h2>
 <p>We find the OrMachine posterior based on the Hamming Distance between the data <span class="math inline">\(X\)</span> and the prediction <span class="math inline">\(\max(Z \cdot U, 1)\)</span>. For an observation <span class="math inline">\(x_{nd}\)</span>, we have <span class="math display">\[\begin{align}
     d_{\text{OrM}} = 1-\tilde{x}_{nd}\tilde{g}_{nd}
 \end{align}\]</span> where <span class="math inline">\(g_{nd} = 1 - \prod\limits_l (1-z_{nl}u_{ld})\)</span>. Then we can define a distribution over the latent factors. <span class="math display">\[\begin{align}
@@ -33,21 +34,40 @@
         \prod\limits_{l&#39;\neq l} (1-z_{nl}u_{ld}) \right]
 \end{align}\]</span></p>
 <p>Now let’s assume we have many type II errors in the data, but only few type I errors. In that case we believe positive observations more then negative observations and thus want to control the associated noise separately. We can define the distance <span class="math display">\[\begin{align}
-    d_{\text{SuperOrM}} = \sum\limits_d
-     (1-\tilde{x}_{nd}\tilde{g}_{nd}) 
-     \left[
-        \lambda_1 x_{nd} 
-        + \lambda_2 (x_{nd}-1)
+    d_{\text{BalancedOrM}} = \sum\limits_d
+     (1-\tilde{x}_{nd}\tilde{g}_{nd}) \lambda
+     \left[ x_{nd} + \frac{1}{s} (x_{nd}-1)
      \right]
-\end{align}\]</span> This leads to the conditionals <span class="math display">\[\begin{equation}
-    p(z_{nl}=1|.) = \sigma\left[ \sum\limits_d \tilde{x}_{nd} u_{ld}
-        \prod\limits_{l&#39;\neq l} (1-z_{nl}u_{ld}) 
-        \left[\lambda_1 x_{nd} + \lambda_2 (x_{nd}-1) \right] \right]
+\end{align}\]</span> Now the contribution of positive observations is diminished by <span class="math inline">\(1/s\)</span>. This leads to the conditionals <span class="math display">\[\begin{equation}
+    p(z_{nl}=1|.) = \sigma\left[ \sum\limits_d
+        \lambda 
+        \left[x_{nd} + \frac{1}{s} (x_{nd}-1) \right]
+        \tilde{x}_{nd} u_{ld}
+        \prod\limits_{l&#39;\neq l} (1-z_{nl}u_{ld}) \right]
 \end{equation}\]</span></p>
-<p>The corresponding likelihood is now a strange animal, conditioned on the true value of the data <span class="math inline">\(\bar{x}\)</span>.</p>
+<p>The corresponding likelihood a bit strange, conditioned on the true value of the data <span class="math inline">\(\bar{x}\)</span>.</p>
 <span class="math display">\[\begin{align}
-p(x_{nd}|.) = \sigma\left[\tilde{x}_{nd} \tilde{g}_{nd}
-    \left(\lambda_1 \bar{x}_{nd} + [\bar{x}_{nd}-1) \lambda_2 ] \right) \right]
+p(x_{nd}|.) = \sigma\left[\tilde{x}_{nd} \tilde{g}_{nd} \lambda
+    \left(\bar{x}_{nd} + \frac{\bar{x}_{nd}-1}{s} \right) \right]
 \end{align}\]</span>
+<p>The conditional MAP estimate for <span class="math inline">\(\lambda\)</span> becomes <span class="math display">\[\begin{align}
+    \sigma(\lambda) = \frac{TP + \frac{TN}{s}}{TP + FN + \frac{TN + FP}{s}}
+\end{align}\]</span></p>
+<p>For now we consider s a fixed hyperparameter. (TODO)</p>
+<h2 id="simulation-catalogue-like-data">Simulation catalogue-like data</h2>
+<p>N: number of objects D: number of attributes</p>
+<ol type="1">
+<li>Draw the number of latent attribute sets, <span class="math inline">\(L\)</span>.</li>
+<li>For each attribute set draw the number of elements uniformly in the interval <span class="math inline">\(D\cdot\)</span>[0.05-0.15]. (could do something heavy-tailed here.s)</li>
+<li>Draw the elements for each attribute set uniformly random from all available elements (could introduce some correlation here.)</li>
+<li>Draw the number of attribute sets for each object from a Poissons(alpha).</li>
+<li>Choose the attribute sets for each observation uniformly random. (In fact, we would assume correlation in the choice of attribute sets.)</li>
+<li>Introduce noise, mimiking human error, and flip all ones with a high probability p_plus and flip all zeros with a lower probability p_minus.</li>
+</ol>
+<p>See below some results of this procedure compared to actual catalogue data</p>
+<p><img src="/Users/trukat/Dropbox/Screenshots/Screenshot 2018-02-13 14.43.44.png " alt="Drawing" style="width: 500px;"/></p>
+<p>Obviously, this (or a more elaborated) generative process could be subject to posterior inference.</p>
+<h2 id="experiments">Experiments</h2>
+<p><img src="/Users/trukat/Dropbox/Screenshots/Screenshot 2018-02-13 16.34.10.png " alt="Drawing" style="width: 500px;"/></p>
 </body>
 </html>
