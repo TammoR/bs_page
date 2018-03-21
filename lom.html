@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Logical Operator Machines</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      div.line-block{white-space: pre-line;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
+  <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="./md_html.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -23,22 +18,32 @@
 </header>
 <nav id="TOC">
 <ul>
+<li><a href="#related-work">Related Work</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#generalisation-to-mathematical-operators">Generalisation to Mathematical Operators</a></li>
 <li><a href="#equivalence-between-logical-operators-under-inverted-input-or-output.">Equivalence between logical operators under inverted input or output.</a><ul>
 <li><a href="#likelihood-functions">Likelihood functions</a></li>
 <li><a href="#conditionals">Conditionals</a></li>
 <li><a href="#implementation">Implementation</a></li>
 </ul></li>
-<li><a href="#the-xor-clan">The <code>XOR</code> clan</a></li>
+<li><a href="#the-xor-clan">The <code>XOR</code> clan</a><ul>
+<li><a href="#representing-lom-conditionals-via-difference-operators">Representing LOM conditionals via difference operators</a></li>
+<li><a href="#genealogy">Genealogy</a></li>
+</ul></li>
 <li><a href="#human-interpretable-lom-semantics">Human interpretable LOM semantics</a></li>
 <li><a href="#food-preparation-as-lom-application">Food preparation as LOM application</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </nav>
+<h2 id="related-work">Related Work</h2>
+<p>Similar extensions have been proposed to noisy-OR models Canonical probabilistic models for knowledge engineering <span class="citation" data-cites="Diez2006">(Diez and Druzdzel 2006, <a href="/Users/trukat/papers/Diez2006.pdf">pdf</a>)</span> and <a href="https://arxiv.org/abs/1303.1479">A Generalization of the Noisy-Or Model</a> and <a href="http://staff.utia.cas.cz/vomlel/Voml_3484.pdf">Generalizations of the noisy-or model</a></p>
+<p>XOR-AND as further promoting the Occam's razor idea. In howfar is XOR-AND is also a solution to OR-AND? Nested?</p>
+<p>Inference in some Machines is difficult (or better: high unertainty), because its much more underdetermined than in other machines.</p>
+<h2 id="introduction">Introduction</h2>
 <p><em>Logical Operator Machines</em> (LOMs) are a class of probabilistic latent feature models whose generative process is based on the composition of logic gates. These models can be viewed as matrix factorisation models where the product <em>and</em> factor matrices are binary. For a <span class="math inline">\(K\)</span>-dimensional dataset <span class="math inline">\(X \in \{0,1\}^{k_1 \times k_2 \times \ldots \times k_K}\)</span>, a latent dimensionality of <span class="math inline">\(L\)</span>, and an inner and outer logical operator, <code>LOP</code><span class="math inline">\(_i\)</span> and <code>LOP</code><span class="math inline">\(_o\)</span> we have the general form</p>
 <p><span class="math display">\[y_{[k]} = \underset{l}{\text{LOP}_o}\left[\underset{k}{\text{LOP}_i}(f_{kl})\right]\;. \]</span></p>
 <p>We use a Bernoulli noise model with parameter <span class="math inline">\(\lambda\)</span>, such that</p>
-<p><span class="math display">\[p(x_{[k]}|.) = \sigma\left[\lambda \tilde{y}_{[k]} \right]\;. \]</span></p>
+<p><span class="math display">\[p(x_{[k]}|.) = \sigma\left[\lambda \tilde{x}_{[k]} \tilde{y}_{[k]} \right]\;. \]</span></p>
 <p>Here, <span class="math inline">\([k]\)</span> denotes a tuple of indices <span class="math inline">\([k_1, k_2, \ldots k_K]\)</span>, such that <span class="math inline">\(x_{[k]}\)</span> is a single observation. The OrMachine is particular instance of LOM with: <span class="math inline">\(K=2\)</span>, <code>LOP</code><span class="math inline">\(_i\)</span> = <code>AND</code>, <code>LOP</code><span class="math inline">\(_o\)</span> = <code>OR</code>. <span class="math display">\[y_{nd} = \underset{l}{\text{OR}}\left[\underset{n,d}{\text{AND}}(z_{nl},u_{ld})\right] \]</span></p>
 <p>This general view suggests some extensions. First we can extend the OrM to data of arbitrary arity, for <span class="math inline">\(K=3\)</span> we recover TensOrM. More interestingly, we consider various combinations of operator links.</p>
 <h2 id="generalisation-to-mathematical-operators">Generalisation to Mathematical Operators</h2>
@@ -85,9 +90,9 @@
 \text{XOR} &amp;\longleftrightarrow \text{XOR}
 \end{aligned}
 \]</span></p>
-<p>This also allows us to read off useful relationships. E.g. if we have an <code>OR</code>-<code>AND</code>-Machine, and we want an <code>AND</code>-<code>NOR</code>-Machine, we can invert the input to inner logical operator (i.e. the factor matrices) to get a <code>OR</code>-<code>NOR</code>-Machine. Next, we invert the output of outer logical operator (i.e. the reconstruction of the product matrix) to get a <code>NOR</code>-<code>NOR</code>-Machine. Practically, inverting the input of the inner- and the output of the outer operator amounts to simple pre- and post-processing steps. However, inverting the output of the inner operator or, equivalently, the input of the outer operator needs some extra implementation work. We can formalise these transitions, defining an inversion operator <span class="math inline">\(\mathcal{I}(x) = 1-x\)</span>, that can invert at the input, the intermediate and the output stage.</p>
+<p>This also allows us to read off useful relationships. E.g. if we have an <code>OR</code>-<code>AND</code>-Machine, and we want an <code>AND</code>-<code>NOR</code>-Machine, we can invert the input to inner logical operator (i.e. the factor matrices) to get a <code>OR</code>-<code>NOR</code>-Machine. Next, we invert the output of outer logical operator (i.e. the reconstruction of the product matrix) to get a <code>NOR</code>-<code>NOR</code>-Machine. Practically, inverting the input of the inner- and the output of the outer operator amounts to simple pre- and post-processing steps. However, inverting the output of the inner operator or, equivalently, the input of the outer operator needs some extra implementation work. We can formalise these transitions, defining an inversion operator <span class="math inline">\(\mathcal{I}(x) = 1-x\)</span>, that can invert at the input, the intermediate and the output stage.</p>
 <p><span class="math display">\[y_{[k]} = \mathcal{I}_o\, \underset{l}{\text{LOP}_o}\, \mathcal{I}_h\, \underset{k}{\text{LOP}_i}(\mathcal{I}_i\,f_{kl})\;. \]</span></p>
-<p>Note, that <span class="math inline">\(\mathcal{I}\,\mathcal{I} = 1\)</span>. Thus, given an <code>OR</code>-<code>AND</code>-Machine, we get a <code>NOR</code>-<code>NOR</code>-Machine by settings <span class="math inline">\(\mathcal{I}_o = \mathcal{I}_i = \mathcal{I}\)</span> and <span class="math inline">\(\mathcal{I}_h = 1\)</span>. This allows us to transition between all possible LOMs, except those that include <code>XOR</code> and <code>XNOR</code> gates, which can’t be achieved by mere inversion. The transitions are given in the following table.</p>
+<p>Note, that <span class="math inline">\(\mathcal{I}\,\mathcal{I} = 1\)</span>. Thus, given an <code>OR</code>-<code>AND</code>-Machine, we get a <code>NOR</code>-<code>NOR</code>-Machine by settings <span class="math inline">\(\mathcal{I}_o = \mathcal{I}_i = \mathcal{I}\)</span> and <span class="math inline">\(\mathcal{I}_h = 1\)</span>. This allows us to transition between all possible LOMs, except those that include <code>XOR</code> and <code>XNOR</code> gates, which can't be achieved by mere inversion. The transitions are given in the following table.</p>
 <table style="width:53%;">
 <colgroup>
 <col style="width: 12%" />
@@ -137,7 +142,7 @@
 </tbody>
 </table>
 <p>[TODO: rewrite this with <code>AND</code>-<code>AND</code> as pivot]</p>
-<p>This also highlights the non-obvious equalities, e.g. an <code>OR</code>-<code>AND</code>-Machine is the same as a <code>NAND</code>-<code>NAND</code>-Machine. In the table above, equivalent machines live on the same diagonal. We have: <span class="math display">\[ 
+<p>This also highlights the non-obvious equalities, e.g. an <code>OR</code>-<code>AND</code>-Machine is the same as a <code>NAND</code>-<code>NAND</code>-Machine. In the table above, equivalent machines live on the same diagonal. We have: <span class="math display">\[ 
 \begin{align}
 \texttt{OR-AND} &amp;= \texttt{NAND-NAND}\\
 \texttt{OR-OR} &amp;= \texttt{NAND-NOR}\\
@@ -149,6 +154,20 @@
 \texttt{AND-NOR} &amp;= \texttt{NOR-OR}
 \end{align}
 \]</span></p>
+<p>We can define a set of canonical LOM's (for now excluding <span class="math inline">\(\texttt{XOR}\)</span>) from which all others can be derived by inverting the inferred factors. The selection is somewhat arbitrary, we always choose the Machine with fewer or inner negations.</p>
+<ul>
+<li>OR-AND</li>
+<li>OR-NAND</li>
+<li>AND-AND (OR-NAND with data inversion)</li>
+<li>AND-NAND (OR-AND with data inversion)</li>
+</ul>
+<p>Models that can be derived from OR-NAND are relatively useless, because they can't express correlation along the latent dimensions. More specifically, a <span class="math inline">\(0\)</span> in any latent dimension induces a <span class="math inline">\(1\)</span> at the intermediate stage. This is independent from its position. Thus <span class="math inline">\(\texttt{OR-NAND}\)</span> machines can always be compressed to a single latent dimensions.</p>
+<p>Thus the useful models we are left with are:</p>
+<ul>
+<li><span class="math inline">\(\texttt{OR-AND}\;(=\texttt{NAND-NAND})\)</span></li>
+<li><span class="math inline">\(\texttt{OR-NOR}\;(=\texttt{NAND-OR}\)</span>) by factor inversion.</li>
+<li><span class="math inline">\(\texttt{NOR-AND}\;(=\texttt{AND-NAND}\)</span>) by data inversion.</li>
+</ul>
 <h3 id="likelihood-functions">Likelihood functions</h3>
 <p>These relationships further manifest in the corresponding model likelihoods. Remember the general form from above: <span class="math display">\[ p(x=1|.) = \sigma(\lambda \tilde{y})\;. \]</span></p>
 <p>The simplest expression for <span class="math inline">\(y\)</span> is that of an <code>AND</code>-<code>AND</code>-Machine, where we have</p>
@@ -174,28 +193,29 @@ p(z_{nl}|.) = \sigma\left[\lambda \tilde{z}_{nl} g_{nl}\right]\;,
 g_{nl} = \sum\limits_{k \in [k]\setminus n}^{K_k} \tilde{x}_{nd} 
     \left[ \prod\limits_{[k]\setminus n} f_{kl} \right]
     \left[ \prod\limits_{l&#39;\neq l} \prod\limits_{[k]} f_{kl&#39;} \right]\;.
-\]</span> The sum is taken over all child nodes of <span class="math inline">\(z_{nl}\)</span>. The first square bracket indicates the effect of <span class="math inline">\(z_{nl}\)</span> on the respective child node as mediated through the matrix entries that connect <span class="math inline">\(z_{nl}\)</span> and <span class="math inline">\(x_{n,[k]\setminus n}\)</span>. The second square bracket indicates the explaining away dependency, i.e. how the state of <span class="math inline">\(z_{nl}\)</span>’s co-parents affect the ability of <span class="math inline">\(z_{nl}\)</span> to change the likelihood. The notation becomes clearer for K=2, where the above equation takes the form</p>
+\]</span> The sum is taken over all child nodes of <span class="math inline">\(z_{nl}\)</span>. The first square bracket indicates the effect of <span class="math inline">\(z_{nl}\)</span> on the respective child node as mediated through the matrix entries that connect <span class="math inline">\(z_{nl}\)</span> and <span class="math inline">\(x_{n,[k]\setminus n}\)</span>. The second square bracket indicates the explaining away dependency, i.e. how the state of <span class="math inline">\(z_{nl}\)</span>'s co-parents affect the ability of <span class="math inline">\(z_{nl}\)</span> to change the likelihood. The notation becomes clearer for K=2, where the above equation takes the form</p>
 <p><span class="math display">\[
 g_{nl} = \sum\limits_{d} \tilde{x}_{nd} \left[ u_{ld} \right]
     \left[ \prod\limits_{l&#39;\neq l} u_{l&#39;d} z_{nl&#39;} \right]\;.
 \]</span></p>
 <p>We can find the expression for any of the above LOMs by applying inversion operators to the <code>AND</code>-<code>AND</code>-Machine as follows: <span class="math display">\[
-g_{nl} = \sum\limits_{k \in [k]\setminus n}^{K_k} [\mathcal{I}_o \mathcal{I}_h x_{nd}]^{\sim} 
+g_{nl} = \sum\limits_{k \in [k]\setminus n}^{K_k} 
+    [\mathcal{I}_o \mathcal{I}_h \mathcal{I}_i x_{nd}]^{\sim} 
     \underbrace{\left[ \prod\limits_{[k]\setminus n} \mathcal{I}_i f_{kl} \right]}_{\text{bracket 1}}
     \underbrace{\left[ \prod\limits_{l&#39;\neq l} \mathcal{I}_h \prod\limits_{[k]} \mathcal{I}_i f_{kl&#39;} \right]}_{\text{bracket 2}}\;.
-\]</span> E.g. for the good old <code>OR</code>-<code>AND</code>-Machine we have <span class="math inline">\(\mathcal{I}_o = \mathcal{I}_h = \mathcal{I}\)</span> and <span class="math inline">\(\mathcal{I}_i = 1\)</span>, which leads to <span class="math display">\[
+\]</span> (TODO: check the first inversion triplet) E.g. for the good old <code>OR</code>-<code>AND</code>-Machine we have <span class="math inline">\(\mathcal{I}_o = \mathcal{I}_h = \mathcal{I}\)</span> and <span class="math inline">\(\mathcal{I}_i = 1\)</span>, which leads to <span class="math display">\[
 g^{\texttt{OR-AND}}_{nl} =  
-    \sum\limits_{k \in [k]\setminus n}^{K_k} x_{nd}^{\sim} 
+    \sum\limits_{k \in [k]\setminus n}^{K_k} \tilde{x}_{nd}
     \left[ \prod\limits_{[k]\setminus n} f_{kl} \right]
     \left[ \prod\limits_{l&#39;\neq l} 1 - \prod\limits_{[k]} f_{kl&#39;} \right]
     \stackrel{K=2}{\rightarrow}
-    \sum\limits_{d} x_{nd}^{\sim} 
+    \sum\limits_{d} \tilde{x}_{nd} 
     u_{dl}
     \left[ \prod\limits_{l&#39;\neq l} (1 - u_{dl&#39;}z_{nl&#39;}) \right]    
     \;.
 \]</span></p>
 <h3 id="implementation">Implementation</h3>
-<p>Computing the full conditional amounts to checking whether any of the square bracket terms becomes zero. This can be done efficiently, since it’s sufficient if any of the terms inside the products becomes zero. Computationally, this amounts to checking one of the following conditions for each bracket.</p>
+<p>Computing the full conditional amounts to checking whether any of the square bracket terms becomes zero. This can be done efficiently, since it's sufficient if any of the terms inside the products becomes zero. Computationally, this amounts to checking one of the following conditions for each bracket.</p>
 <ul>
 <li><span class="math inline">\(\exists\; (k \in [k], l): f_{kl}=1\)</span></li>
 <li><span class="math inline">\(\exists\; (k \in [k], l): f_{kl}=0\)</span> (OrMachine bracket 1)</li>
@@ -228,24 +248,138 @@ h_{lnd} = \begin{cases}
             -1;\;\text{if}&amp;\; \prod\limits_{l&#39;\neq l} z_{nl&#39;} u_{l&#39;d} = 1 \\
           \end{cases}
 \end{align}\]</span>
+<p>Not that <span class="math inline">\(\texttt{XOR-LOP}\)</span> with inverted data is yet another machine and that <span class="math inline">\(\texttt{LOP-XOR}\)</span> with inverted factors is <span class="math inline">\(\texttt{LOP-XOR}\)</span> only for <span class="math inline">\(K=2\)</span> but a different machine otherwise.</p>
+<p>We define a new operator that answers the questions, changing on of the inputs to an <span class="math inline">\(\texttt{XOR}\)</span>--gate, what will be the value of its output (a bit like a derivative?)</p>
+<span class="math display">\[\begin{align}
+    \delta \texttt{XOR}_k(f_k) = \begin{cases}
+        0 \;\text{if}\; &amp;\sum_k f_k &gt; 1 \\
+        1 \;\text{if}\; &amp;\sum_k f_k = 0 \\
+        -1 \;\text{if}\; &amp;\sum_k f_k = 1
+    \end{cases}
+\end{align}\]</span>
+<h3 id="representing-lom-conditionals-via-difference-operators">Representing LOM conditionals via difference operators</h3>
+<p>An elegant way to formalise LOM conditionals makes use of the the difference operators:</p>
+<span class="math display">\[\begin{align}
+\delta \texttt{LOP}(f) = \texttt{LOP}(f, 1) - \texttt{LOP}(f, 0)
+\end{align}\]</span>
+<p>We have, for instance,</p>
+<span class="math display">\[\begin{align}
+    \delta\texttt{AND} &amp;= \texttt{AND}\\
+    \delta\texttt{OR} &amp;= \texttt{NOR}\\
+    \delta\texttt{NOR} &amp;= -\delta\texttt{OR}=  -\texttt{NOR}\\
+    \delta\texttt{NAND} &amp;= -\delta\texttt{AND} = - \texttt{AND}\\
+    \delta\texttt{XOR}(f) &amp;= \begin{cases}
+        0 \;\text{if}\; &amp;\sum_k f_k &gt; 1 \\
+        1 \;\text{if}\; &amp;\sum_k f_k = 0 \\
+        -1 \;\text{if}\; &amp;\sum_k f_k = 1
+    \end{cases} \\
+    \delta\texttt{NXOR}(f) &amp;= -\delta\texttt{XOR} = \begin{cases}
+    0 \;\text{if}\; &amp;\sum_k f_k &gt; 1 \\
+    -1 \;\text{if}\; &amp;\sum_k f_k = 0 \\
+    1 \;\text{if}\; &amp;\sum_k f_k = 1
+    \end{cases}
+\end{align}\]</span>
+Then the conditional of a <span class="math inline">\(\texttt{LOM}_o\)</span>-<span class="math inline">\(\texttt{LOM}_i\)</span> machine is given by
+<span class="math display">\[\begin{align}
+    g_{nl} = \sum\limits_d \tilde{x}_{nd} \; \delta\underset{k\neq n}{\texttt{LOM}_i} (f_{ld}) \;
+             \delta\underset{l&#39;\neq l}{\texttt{LOM}_o} \; \underset{k}{\texttt{LOM}_i} (f_{kl&#39;})
+\end{align}\]</span>
+For instance and <span class="math inline">\(\texttt{OR}\)</span>-<span class="math inline">\(\texttt{AND}\)</span> machine:
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \texttt{AND}(f_{lk}) \;
+            \texttt{NOR}_{l&#39;}\texttt{AND}_k (f_{kl&#39;}) \\
+        &amp;=  \sum\limits_d \tilde{x}_{nd} \; u_{ld} \;
+            \prod\limits_{l&#39;} (1 - z_{nl} u_{ld})
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{XOR}\)</span>-<span class="math inline">\(\texttt{AND}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \texttt{AND}(f_{lk}) \;
+            \delta\texttt{XOR}_{l&#39;}\texttt{AND}_k (f_{kl&#39;}) \\
+        &amp;=  \sum\limits_d \tilde{x}_{nd} \; u_{ld} \;
+            \delta\underset{l&#39;}{\texttt{XOR}} (z_{nl&#39;} u_{l&#39;d})
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{XOR}\)</span>-<span class="math inline">\(\texttt{NAND}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d - \tilde{x}_{nd} \; \texttt{AND}(f_{lk}) \;
+            \delta\texttt{XOR}_{l&#39;}\texttt{NAND}_k (f_{kl&#39;}) \\
+        &amp;=  - \sum\limits_d \tilde{x}_{nd} \; u_{ld} \;
+            \delta\underset{l&#39;}{\texttt{XOR}} (1 - z_{nl&#39;} u_{l&#39;d})
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{OR}\)</span>-<span class="math inline">\(\texttt{XOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \texttt{NOR}_{l&#39;}\texttt{XOR}_k (f_{kl&#39;}) \\
+        &amp;=  \sum\limits_d - \tilde{x}_{nd} \; \tilde{u}_{ld} \;
+            \prod\limits_{l&#39;} (1 - \text{abs}(z_{nl}-u_{ld}))
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{NAND}\)</span>-<span class="math inline">\(\texttt{XOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d - \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \texttt{AND}_{l&#39;}\texttt{XOR}_k (f_{kl&#39;}) \\
+        &amp;=  \sum\limits_d \tilde{x}_{nd} \; \tilde{u}_{ld} \;
+            \prod\limits_{l&#39;} \text{abs}(z_{nl}-u_{ld})
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{XOR}\)</span>-<span class="math inline">\(\texttt{XOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \delta\texttt{XOR}_{l&#39;}\texttt{XOR}_k (f_{kl&#39;}) \\
+        &amp;=  \sum\limits_d -\tilde{x}_{nd} \; \tilde{u}_{ld} \;
+            \delta\texttt{XOR}_{l&#39;} [\text{abs}(z_{nl&#39;}-u_{l&#39;d})]
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{XOR}\)</span>-<span class="math inline">\(\texttt{NXOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \delta\texttt{NXOR}(f_{lk}) \;
+            \delta\texttt{XOR}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\
+        &amp;= \sum\limits_d - \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \delta\texttt{XOR}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\            
+        &amp;=  \sum\limits_d \tilde{x}_{nd} \; \tilde{u}_{ld} \;
+            \delta\texttt{XOR}_{l&#39;} \left[1-\text{abs}(u_{dl&#39;}-z_{nl&#39;})\right]
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{AND}\)</span>-<span class="math inline">\(\texttt{NXOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \delta\texttt{NXOR}(f_{lk}) \;
+            \delta\texttt{AND}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\
+    &amp;= \sum\limits_d - \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \texttt{AND}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\
+    &amp;= \sum\limits_d \tilde{x}_{nd} \tilde{u}_{ld}\;
+            \prod\limits_{l&#39;} \left[1-\text{abs}(u_{dl&#39;}-z_{nl&#39;})\right]                      
+\end{align}\]</span>
+For an <span class="math inline">\(\texttt{OR}\)</span>-<span class="math inline">\(\texttt{NXOR}\)</span> machine we can write
+<span class="math display">\[\begin{align}
+    g_{nl} &amp;= \sum\limits_d \tilde{x}_{nd} \; \delta\texttt{NXOR}(f_{lk}) \;
+            \delta\texttt{OR}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\
+    &amp;= \sum\limits_d - \tilde{x}_{nd} \; \delta\texttt{XOR}(f_{lk}) \;
+            \texttt{NOR}_{l&#39;}\texttt{NXOR}_k (f_{kl&#39;}) \\
+    &amp;= \sum\limits_d \tilde{x}_{nd} \tilde{u}_{ld}\;
+            \prod\limits_{l&#39;} \text{abs}(u_{dl&#39;}-z_{nl&#39;})
+\end{align}\]</span>
+<h3 id="genealogy">Genealogy</h3>
+<ul>
+<li></li>
+<li> (invert factors from )</li>
+<li></li>
+<li> (invert output from )</li>
+<li> (invert intermediate)</li>
+</ul>
+<p>Useless ones -  -  (invert factors from )</p>
 <h2 id="human-interpretable-lom-semantics">Human interpretable LOM semantics</h2>
 <p>We can understand the conditions for having a positive output in each possible LOM by combining human understandable semantics for each operator. Start with a choice for <code>LOM</code>_<span class="math inline">\(o\)</span>.</p>
 <ul>
 <li><code>AND</code>: Every</li>
-<li><code>OR</code>: At least one …</li>
-<li><code>XOR</code>: Exactly one …</li>
-<li><code>NAND</code>: Not all …</li>
-<li><code>NOR</code>: Not a single…</li>
-<li><code>NXOR</code>: None or more than one …</li>
+<li><code>OR</code>: At least one ...</li>
+<li><code>XOR</code>: Exactly one ...</li>
+<li><code>NAND</code>: Not all ...</li>
+<li><code>NOR</code>: Not a single...</li>
+<li><code>NXOR</code>: None or more than one ...</li>
 </ul>
-<p>Append the phase <em>… latent feature(s) must be active …</em>, pick one of <code>LOM</code>_<span class="math inline">\(i\)</span>:</p>
+<p>Append the phase <em>... latent feature(s) must be active ...</em>, pick one of <code>LOM</code>_<span class="math inline">\(i\)</span>:</p>
 <ul>
-<li><code>AND</code>: … in all factor matrices</li>
-<li><code>OR</code>: … in at least one factor matrix</li>
-<li><code>XOR</code>: … in exactly one factor matrix</li>
-<li><code>NAND</code>: … in less than one <strong>factor</strong> matrix</li>
-<li><code>NOR</code>: … no factor matrix at all</li>
-<li><code>NXOR</code>: … in none or more than one factor matrices.</li>
+<li><code>AND</code>: ... in all factor matrices</li>
+<li><code>OR</code>: ... in at least one factor matrix</li>
+<li><code>XOR</code>: ... in exactly one factor matrix</li>
+<li><code>NAND</code>: ... in less than one <strong>factor</strong> matrix</li>
+<li><code>NOR</code>: ... no factor matrix at all</li>
+<li><code>NXOR</code>: ... in none or more than one factor matrices.</li>
 </ul>
 <h2 id="food-preparation-as-lom-application">Food preparation as LOM application</h2>
 <p>We observe multiple individuals shopping in a supermarket and obtain a binary [<code>person</code> <span class="math inline">\(\times\)</span> <code>ingredients</code>] matrix. We can factorise this matrix</p>
@@ -259,6 +393,11 @@ h_{lnd} = \begin{cases}
 \]</span> Thus there is some sort of inverse relationship between <code>AND</code>-<code>AND</code> and <code>OR</code>-<code>AND</code>.</p>
 <!-- - `XOR`  explaining each data point by exactly one latent factor. Could be interesting form the pov of quantifying epistemological rather than ontological uncertainty.
  -->
-<h1 id="references">References</h1>
+<h1 id="references" class="unnumbered">References</h1>
+<div id="refs" class="references">
+<div id="ref-Diez2006">
+<p>Diez, F. J., and M. J. Druzdzel. 2006. “Canonical Probabilistic Models for Knowledge Engineering.” Technical Report CISIAD-06-01. Madrid, Spain: UNED.</p>
+</div>
+</div>
 </body>
 </html>
